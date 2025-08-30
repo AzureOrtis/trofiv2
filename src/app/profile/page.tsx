@@ -40,8 +40,9 @@ export default function ProfilePage() {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      minHeight: '100vh',
-      fontFamily: 'system-ui, -apple-system, sans-serif'
+      height: '100vh',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      overflow: 'hidden'
     }}>
       <style jsx>{`
         @keyframes pulse {
@@ -202,12 +203,16 @@ export default function ProfilePage() {
         }}></div>
       </div>
 
-      {/* Menu Section - Light Background */}
-      <div style={{
-        backgroundColor: '#f9fafb',
-        flex: 1,
-        padding: '1rem 1rem 0 1rem'
-      }}>
+      {/* Menu Section - Light Background - Scrollable */}
+      <div 
+        className="scrollable-content"
+        style={{
+          backgroundColor: '#f9fafb',
+          flex: 1,
+          padding: '1rem 1rem 0 1rem',
+          overflowY: 'auto'
+        }}
+      >
         {menuItems.map((item) => (
           <button
             key={item.id}
@@ -246,6 +251,9 @@ export default function ProfilePage() {
             </span>
           </button>
         ))}
+        
+        {/* Bottom spacing for navigation */}
+        <div style={{ height: '5rem' }}></div>
       </div>
 
       {/* Bottom Navigation - Consistent with other pages */}

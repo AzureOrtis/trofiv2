@@ -69,10 +69,11 @@ export default function OrdersPage() {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      minHeight: '100vh',
+      height: '100vh',
       backgroundColor: 'white',
       width: '100%',
-      fontFamily: 'system-ui, -apple-system, sans-serif'
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      overflow: 'hidden'
     }}>
       {/* Header */}
       <div style={{
@@ -108,13 +109,17 @@ export default function OrdersPage() {
         }}></div>
       </div>
 
-      {/* Orders List */}
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1,
-        padding: '0 1rem'
-      }}>
+      {/* Orders List - Scrollable */}
+      <div 
+        className="scrollable-content"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+          padding: '0 1rem',
+          overflowY: 'auto'
+        }}
+      >
         {orders.map((order) => (
           <div key={order.id} style={{
             display: 'flex',

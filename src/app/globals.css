@@ -32,6 +32,8 @@ html, body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
 }
 
 body {
@@ -119,5 +121,30 @@ body {
   .status-indicator {
     font-size: 12px;
     padding: 6px 12px;
+  }
+}
+
+/* Enhanced mobile scrolling */
+.scrollable-content {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scrolling on mobile */
+.scrollable-content::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Mobile touch improvements */
+@media (pointer: coarse) {
+  .scrollable-content {
+    scroll-snap-type: y proximity;
+  }
+  
+  button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
