@@ -12,6 +12,13 @@ declare global {
 }
 
 export default function Home() {
+  // Debug: Log environment variable status
+  console.log('Environment check:', {
+    hasApiKey: !!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    apiKeyLength: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY?.length || 0,
+    nodeEnv: process.env.NODE_ENV
+  });
+
   const router = useRouter();
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
@@ -20,6 +27,7 @@ export default function Home() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [cartItems, setCartItems] = useState<string[]>([]);
   const [showCartPopup, setShowCartPopup] = useState(false);
+  const [mapError, setMapError] = useState<string | null>(null);
 
   // Sample restaurant data with leftover food
   const generateRestaurantsNearLocation = (centerLat: number, centerLng: number) => {
@@ -324,14 +332,27 @@ export default function Home() {
         return;
       }
 
+      const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+      
+      if (!apiKey || apiKey.trim() === '') {
+        const errorMsg = 'Google Maps API key is missing or empty. Please check your environment variables.';
+        console.error(errorMsg);
+        setMapError(errorMsg);
+        return;
+      }
+      
+      console.log('Loading Google Maps with API key:', apiKey ? 'Key present' : 'Key missing');
+      
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places,geometry`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places,geometry`;
       script.async = true;
       script.defer = true;
       script.onload = initializeMap;
-              script.onerror = () => {
-          console.error('Failed to load Google Maps');
-        };
+      script.onerror = () => {
+        const errorMsg = 'Failed to load Google Maps. Please check your internet connection and try again.';
+        console.error(errorMsg);
+        setMapError(errorMsg);
+      };
       document.head.appendChild(script);
     };
 
