@@ -3,6 +3,7 @@
 import React from 'react';
 import { Trash2, ShoppingBag, MapPin, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function OrdersPage() {
   const router = useRouter();
@@ -130,9 +131,11 @@ export default function OrdersPage() {
               marginRight: '0.875rem',
               flexShrink: 0
             }}>
-              <img 
+              <Image 
                 src={order.image} 
                 alt={order.restaurant}
+                width={56}
+                height={56}
                 style={{
                   width: '100%',
                   height: '100%',

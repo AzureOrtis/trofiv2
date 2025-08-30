@@ -3,6 +3,7 @@
 import React from 'react';
 import { User, Filter, LogOut, ShoppingBag, MapPin, Bell, AlertTriangle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -147,9 +148,11 @@ export default function ProfilePage() {
             position: 'relative',
             zIndex: 2
           }}>
-            <img
+            <Image
               src="/images/shinchan.jpg"
               alt="Shin Chan"
+              width={200}
+              height={200}
               style={{
                 width: '100%',
                 height: '100%',

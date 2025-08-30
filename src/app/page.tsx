@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 
 declare global {
   interface Window {
-    google: any;
+    google: typeof google;
     restaurantMarkers: google.maps.Marker[];
   }
 }
@@ -16,7 +16,7 @@ export default function Home() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
   const [userLocation, setUserLocation] = useState<google.maps.LatLngLiteral | null>(null);
-  const [locationError, setLocationError] = useState<string | null>(null);
+
   const [mapLoaded, setMapLoaded] = useState(false);
   const [cartItems, setCartItems] = useState<string[]>([]);
   const [showCartPopup, setShowCartPopup] = useState(false);
@@ -123,17 +123,23 @@ export default function Home() {
 
   // Make addToCart globally accessible for Google Maps info window
   useEffect(() => {
-    (window as any).addToCart = addToCart;
+    (window as unknown as { addToCart?: typeof addToCart }).addToCart = addToCart;
     
     return () => {
-      delete (window as any).addToCart;
+      (window as unknown as { addToCart?: typeof addToCart }).addToCart = undefined;
     };
   }, []);
 
-  const [restaurants, setRestaurants] = useState<any[]>([]);
+  const [restaurants, setRestaurants] = useState<Array<{
+    name: string;
+    position: google.maps.LatLngLiteral;
+    leftoverFood: string;
+    discount: string;
+    pickupTime: string;
+  }>>([]);
 
   // Get user location
-  const getUserLocation = () => {
+  const getUserLocation = useCallback(() => {
     if ("geolocation" in navigator) {
       console.log('Requesting user location...');
       
@@ -199,7 +205,6 @@ export default function Home() {
               break;
           }
           
-          setLocationError(errorMessage);
           console.log('Location error details:', errorMessage);
         },
         {
@@ -211,12 +216,11 @@ export default function Home() {
     } else {
       const errorMessage = "Geolocation not supported by this browser";
       console.error(errorMessage);
-      setLocationError(errorMessage);
     }
-  };
+  }, [mapLoaded]);
 
   // Add restaurant markers to the map
-  const addRestaurantMarkers = () => {
+  const addRestaurantMarkers = useCallback(() => {
     if (!map.current || restaurants.length === 0) return;
 
     // Clear existing restaurant markers
@@ -299,9 +303,9 @@ export default function Home() {
         </div>
       `;
 
+      // Create info window
       const infoWindow = new google.maps.InfoWindow({
-        content: infoWindowContent,
-        maxWidth: 350
+        content: infoWindowContent
       });
 
       // Add click listener to marker
@@ -309,7 +313,7 @@ export default function Home() {
         infoWindow.open(map.current, marker);
       });
     });
-  };
+  }, [restaurants]);
 
   // Initialize Google Maps
   useEffect(() => {
@@ -325,10 +329,9 @@ export default function Home() {
       script.async = true;
       script.defer = true;
       script.onload = initializeMap;
-      script.onerror = () => {
-        console.error('Failed to load Google Maps');
-        setLocationError('Failed to load Google Maps');
-      };
+              script.onerror = () => {
+          console.error('Failed to load Google Maps');
+        };
       document.head.appendChild(script);
     };
 
@@ -404,7 +407,7 @@ export default function Home() {
         google.maps.event.clearInstanceListeners(map.current);
       }
     };
-  }, [userLocation]);
+  }, [userLocation, addRestaurantMarkers, getUserLocation]);
 
   // Watch for map loading and center on user location if available
   useEffect(() => {
@@ -437,7 +440,7 @@ export default function Home() {
     if (mapLoaded && map.current) {
       addRestaurantMarkers();
     }
-  }, [mapLoaded, userLocation]);
+  }, [mapLoaded, userLocation, addRestaurantMarkers]);
 
   // Watch for restaurant changes and update markers
   useEffect(() => {
@@ -445,7 +448,7 @@ export default function Home() {
       console.log('Restaurants updated, refreshing markers...');
       addRestaurantMarkers();
     }
-  }, [restaurants, mapLoaded]);
+  }, [restaurants, mapLoaded, addRestaurantMarkers]);
 
   return (
     <div className="w-full h-screen relative">
