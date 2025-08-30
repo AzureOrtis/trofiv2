@@ -117,7 +117,9 @@ export default function OrdersPage() {
           flexDirection: 'column',
           flex: 1,
           padding: '0 1rem',
-          overflowY: 'auto'
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          scrollPaddingBottom: '6rem'
         }}
       >
         {orders.map((order) => (
@@ -299,7 +301,7 @@ export default function OrdersPage() {
       </div>
 
       {/* Bottom spacing for navigation */}
-      <div style={{ height: '5rem' }}></div>
+      <div style={{ height: '8rem' }}></div>
     </div>
   );
 }

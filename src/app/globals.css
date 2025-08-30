@@ -129,6 +129,7 @@ body {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   scroll-behavior: smooth;
+  scroll-padding-bottom: 6rem;
 }
 
 /* Prevent horizontal scrolling on mobile */

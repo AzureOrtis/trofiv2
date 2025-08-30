@@ -210,7 +210,9 @@ export default function ProfilePage() {
           backgroundColor: '#f9fafb',
           flex: 1,
           padding: '1rem 1rem 0 1rem',
-          overflowY: 'auto'
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          scrollPaddingBottom: '6rem'
         }}
       >
         {menuItems.map((item) => (
@@ -253,7 +255,7 @@ export default function ProfilePage() {
         ))}
         
         {/* Bottom spacing for navigation */}
-        <div style={{ height: '5rem' }}></div>
+        <div style={{ height: '8rem' }}></div>
       </div>
 
       {/* Bottom Navigation - Consistent with other pages */}
@@ -267,7 +269,8 @@ export default function ProfilePage() {
         borderRadius: '2rem',
         border: '1px solid rgba(255, 255, 255, 0.3)',
         padding: '1rem 2rem',
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+        zIndex: 1000
       }}>
         <div style={{
           display: 'flex',
