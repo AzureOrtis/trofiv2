@@ -29,11 +29,7 @@ export default function ProfilePage() {
       icon: <AlertTriangle style={{ width: '1.5rem', height: '1.5rem', color: 'black' }} />,
       text: "Allergies"
     },
-    {
-      id: 5,
-      icon: <LogOut style={{ width: '1.5rem', height: '1.5rem', color: 'black' }} />,
-      text: "Log Out"
-    }
+
   ];
 
   return (
@@ -85,6 +81,50 @@ export default function ProfilePage() {
         flexDirection: 'column',
         alignItems: 'center'
       }}>
+        
+        {/* Logout Icon - Top Right */}
+        <button
+          className="logout-button"
+          onClick={() => {
+            // Add logout logic here
+            console.log('Logout clicked');
+            router.push('/');
+          }}
+          style={{
+            position: 'absolute',
+            top: '1rem',
+            right: '1rem',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            border: 'none',
+            borderRadius: '50%',
+            width: '2.5rem',
+            height: '2.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            backdropFilter: 'blur(10px)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+          onTouchStart={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onTouchEnd={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
+          <LogOut style={{ width: '1.25rem', height: '1.25rem', color: 'white' }} />
+        </button>
 
 
         {/* Profile Picture with Animated Orange Glow */}

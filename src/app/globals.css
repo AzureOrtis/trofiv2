@@ -149,3 +149,10 @@ body {
     min-width: 44px;
   }
 }
+
+/* Logout button mobile optimization */
+.logout-button {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
