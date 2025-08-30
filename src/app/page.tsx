@@ -486,7 +486,7 @@ export default function Home() {
                  <div style={{
                    position: 'fixed',
                    bottom: '5rem',
-                   left: '2rem',
+                   left: '1rem',
                    backgroundColor: 'white',
                    borderRadius: '12px',
                    padding: '1rem',
@@ -581,7 +581,7 @@ export default function Home() {
                  style={{
                    position: 'fixed',
                    bottom: '1.5rem',
-                   left: '2rem',
+                   left: '1rem',
                    backgroundColor: '#ef4444',
                    color: 'white',
                    borderRadius: '50%',
