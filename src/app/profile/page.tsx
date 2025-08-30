@@ -228,7 +228,7 @@ export default function ProfilePage() {
       {/* Curved Transition */}
       <div style={{
         backgroundColor: '#333333',
-        height: '3rem',
+        height: '2rem',
         position: 'relative'
       }}>
         <div style={{
@@ -249,7 +249,7 @@ export default function ProfilePage() {
         style={{
           backgroundColor: '#f9fafb',
           flex: 1,
-          padding: '1rem 1rem 0 1rem',
+          padding: '0.5rem 1rem 0 1rem',
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
           scrollPaddingBottom: '6rem'
