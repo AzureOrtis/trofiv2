@@ -48,7 +48,7 @@ export default function OrdersPage() {
     {
       id: 5,
       restaurant: "SYNCS BBQ",
-      image: "/images/SYNCSBBQ.jpg",
+      image: "/images/SYNCSBBQ.jpeg",
       items: 4,
       price: "A$20.78",
       date: "13 Aug",
