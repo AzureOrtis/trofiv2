@@ -47,8 +47,8 @@ export default function OrdersPage() {
     },
     {
       id: 5,
-      restaurant: "Lee's Dumpling",
-      image: "/images/leesdumplings.jpg",
+      restaurant: "SYNCS BBQ",
+      image: "/images/SYNCSBBQ.jpg",
       items: 4,
       price: "A$20.78",
       date: "13 Aug",
